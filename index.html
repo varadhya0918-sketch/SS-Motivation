@@ -1,1158 +1,672 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>∞ SS Motivation</title>
+<title>SS Motivation</title>
 
 <style>
-
-/* ===============================
-   INFINITE MOTIVATION — VERSION 2
-================================ */
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
 }
 
 body {
-    background: #000;
-    color: white;
     font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    min-height: 100vh;
     overflow: hidden;
+    background: #111;
 }
 
-#app {
-    width: 100%;
-    height: 100vh;
-    height: 100dvh;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-
-/* ===============================
-   CINEMATIC BACKGROUND
-================================ */
-
-#background {
-    position: absolute;
+.background {
+    position: fixed;
     inset: 0;
-
     background-size: cover;
     background-position: center;
-
     transition: opacity 1.2s ease;
-
-    animation: cinematicZoom 18s ease-in-out infinite alternate;
-
-    transform: scale(1.08);
+    z-index: -3;
 }
 
-@keyframes cinematicZoom {
-
-    from {
-        transform: scale(1.05);
-    }
-
-    to {
-        transform: scale(1.18);
-    }
-
-}
-
-
-/* DARK CINEMATIC OVERLAY */
-
-#overlay {
-
-    position: absolute;
+.overlay {
+    position: fixed;
     inset: 0;
-
     background:
-        radial-gradient(
-            circle at center,
-            rgba(0,0,0,0.15),
-            rgba(0,0,0,0.85)
-        ),
-
         linear-gradient(
-            135deg,
-            rgba(0,0,0,0.55),
-            rgba(0,0,0,0.15),
-            rgba(0,0,0,0.70)
+            180deg,
+            rgba(0,0,0,.45),
+            rgba(0,0,0,.25),
+            rgba(0,0,0,.65)
         );
+    z-index: -2;
 }
 
-
-/* ===============================
-   TOP HEADER
-================================ */
-
-#header {
-
-    position: absolute;
-
-    top: 22px;
-
-    width: 100%;
-
+.container {
+    min-height: 100vh;
     display: flex;
-
-    justify-content: space-between;
-
     align-items: center;
-
-    padding: 0 22px;
-
-    z-index: 10;
-
+    justify-content: center;
+    padding: 30px;
 }
 
-
-.brand {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-}
-
-
-.infinity {
-
-    font-size: 35px;
-
-    font-weight: bold;
-
-}
-
-
-.brand-name {
-
-    font-size: 11px;
-
-    letter-spacing: 3px;
-
-    opacity: 0.75;
-
-}
-
-
-.live {
-
-    font-size: 10px;
-
-    letter-spacing: 2px;
-
-    opacity: 0.8;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 7px;
-
-}
-
-
-.dot {
-
-    width: 7px;
-
-    height: 7px;
-
-    border-radius: 50%;
-
-    background: #fff;
-
-    animation: pulse 1.5s infinite;
-
-}
-
-
-@keyframes pulse {
-
-    0%, 100% {
-        opacity: 0.3;
-        transform: scale(1);
-    }
-
-    50% {
-        opacity: 1;
-        transform: scale(1.5);
-    }
-
-}
-
-
-/* ===============================
-   QUOTE AREA
-================================ */
-
-#quoteContainer {
-
-    width: min(1000px, 90%);
-
+.quote-box {
+    width: min(900px, 95vw);
     text-align: center;
-
-    z-index: 5;
-
-    transition: opacity 0.6s ease,
-                transform 0.6s ease;
-
-}
-
-
-#quoteMark {
-
-    font-size: 80px;
-
-    height: 55px;
-
-    opacity: 0.45;
-
-}
-
-
-#quote {
-
-    font-size: clamp(28px, 5vw, 70px);
-
-    font-weight: 700;
-
-    line-height: 1.22;
-
-    text-shadow:
-        0 4px 30px rgba(0,0,0,0.9);
-
-}
-
-
-#author {
-
-    margin-top: 30px;
-
-    font-size: clamp(13px, 2vw, 19px);
-
-    letter-spacing: 2px;
-
-    opacity: 0.75;
-
-}
-
-
-/* QUOTE ANIMATION */
-
-.hideQuote {
-
-    opacity: 0;
-
-    transform: translateY(20px);
-
-}
-
-
-/* ===============================
-   BOTTOM AREA
-================================ */
-
-#bottom {
-
-    position: absolute;
-
-    bottom: 25px;
-
-    width: 100%;
-
-    text-align: center;
-
-    z-index: 10;
-
-}
-
-
-#counter {
-
-    font-size: 11px;
-
-    letter-spacing: 2px;
-
-    opacity: 0.7;
-
-}
-
-
-#status {
-
-    margin-top: 9px;
-
-    font-size: 10px;
-
-    letter-spacing: 2px;
-
-    opacity: 0.45;
-
-}
-
-
-/* ===============================
-   PROGRESS BAR
-================================ */
-
-#progressBackground {
-
-    position: absolute;
-
-    bottom: 0;
-
-    left: 0;
-
-    width: 100%;
-
-    height: 3px;
-
-    background: rgba(255,255,255,0.15);
-
-    z-index: 20;
-
-}
-
-
-#progress {
-
-    height: 100%;
-
-    width: 0%;
-
-    background: white;
-
-}
-
-
-/* ===============================
-   SHARE BUTTON
-================================ */
-
-#shareButton {
-
-    position: absolute;
-
-    right: 18px;
-
-    bottom: 70px;
-
-    width: 44px;
-
-    height: 44px;
-
-    border-radius: 50%;
-
-    border: 1px solid rgba(255,255,255,0.3);
-
-    background: rgba(0,0,0,0.25);
-
-    color: white;
-
-    font-size: 18px;
-
-    cursor: pointer;
-
-    z-index: 20;
-
+    padding: 55px 35px;
+    background: rgba(0,0,0,.32);
     backdrop-filter: blur(8px);
-
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 25px;
+    box-shadow: 0 20px 70px rgba(0,0,0,.4);
 }
 
-
-/* ===============================
-   PAUSE INDICATOR
-================================ */
-
-#paused {
-
-    position: absolute;
-
-    top: 70px;
-
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    font-size: 10px;
-
-    letter-spacing: 3px;
-
-    opacity: 0;
-
-    transition: opacity 0.3s;
-
-    z-index: 20;
-
+.logo {
+    font-size: 15px;
+    letter-spacing: 5px;
+    opacity: .8;
+    margin-bottom: 35px;
 }
 
-
-#paused.show {
-
-    opacity: 0.7;
-
+.quote {
+    font-size: clamp(28px, 5vw, 55px);
+    line-height: 1.25;
+    font-weight: 700;
+    text-shadow: 0 4px 25px rgba(0,0,0,.8);
+    transition: opacity .5s ease, transform .5s ease;
 }
 
-
-/* MOBILE */
-
-@media (max-width: 600px) {
-
-    #header {
-        padding: 0 16px;
-    }
-
-    .brand-name {
-        font-size: 9px;
-    }
-
-    .live {
-        font-size: 8px;
-    }
-
-    #quote {
-        font-size: clamp(27px, 8vw, 48px);
-    }
-
-    #quoteContainer {
-        width: 88%;
-    }
-
+.author {
+    margin-top: 28px;
+    font-size: 15px;
+    opacity: .7;
 }
 
+.status {
+    position: fixed;
+    top: 20px;
+    right: 22px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    opacity: .8;
+}
+
+.progress {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    width: 0%;
+    background: white;
+}
+
+.hint {
+    position: fixed;
+    bottom: 25px;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    opacity: .55;
+}
+
+button {
+    position: fixed;
+    bottom: 55px;
+    right: 25px;
+    padding: 11px 18px;
+    border-radius: 30px;
+    border: 1px solid rgba(255,255,255,.3);
+    background: rgba(0,0,0,.35);
+    color: white;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+}
+
+button:hover {
+    background: rgba(255,255,255,.2);
+}
 </style>
-
 </head>
 
 <body>
 
-<div id="app">
+<div class="background" id="background"></div>
+<div class="overlay"></div>
 
-```
-<div id="background"></div>
+<div class="status" id="status">● LIVE</div>
 
-<div id="overlay"></div>
+<div class="container">
+    <div class="quote-box">
 
-
-<!-- HEADER -->
-
-<div id="header">
-
-    <div class="brand">
-
-        <div class="infinity">∞</div>
-
-        <div class="brand-name">
-            INFINITE MOTIVATION
+        <div class="logo">
+            ∞ INFINITE MOTIVATION
         </div>
 
-    </div>
+        <div class="quote" id="quote">
+            Loading inspiration...
+        </div>
 
-
-    <div class="live">
-
-        <div class="dot"></div>
-
-        LIVE
+        <div class="author" id="author"></div>
 
     </div>
-
 </div>
 
+<button onclick="nextQuote()">NEXT →</button>
 
-<!-- PAUSED -->
-
-<div id="paused">
-
-    PAUSED
-
+<div class="hint">
+    Click anywhere for another quote • Spacebar also works
 </div>
 
+<div class="progress" id="progress"></div>
 
-<!-- QUOTE -->
-
-<div id="quoteContainer">
-
-    <div id="quoteMark">
-
-        “
-
-    </div>
-
-
-    <div id="quote">
-
-        Loading inspiration...
-
-    </div>
-
-
-    <div id="author"></div>
-
-</div>
-
-
-<!-- SHARE -->
-
-<button id="shareButton">
-
-    ↗
-
-</button>
-
-
-<!-- BOTTOM -->
-
-<div id="bottom">
-
-    <div id="counter">
-
-        SESSION MOTIVATION #1
-
-    </div>
-
-    <div id="status">
-
-        CONNECTING TO INSPIRATION...
-
-    </div>
-
-</div>
-
-
-<!-- PROGRESS -->
-
-<div id="progressBackground">
-
-    <div id="progress"></div>
-
-</div>
-```
-
-</div>
 
 <script>
 
+/* =========================================================
+   MOTIVATIONAL QUOTES
+   ========================================================= */
 
-/* =====================================
-   SETTINGS
-===================================== */
+const quotes = [
 
-const QUOTE_DURATION = 7000;
+/* ENGLISH */
+
+"Success is the sum of small efforts, repeated day in and day out.",
+
+"Discipline is choosing what you want most over what you want now.",
+
+"Don't wait for motivation. Build discipline.",
+
+"The difference between ordinary and extraordinary is consistency.",
+
+"Your future is created by what you do today, not tomorrow.",
+
+"Success doesn't come from what you do occasionally. It comes from what you do consistently.",
+
+"Dreams don't work unless you do.",
+
+"Great things are done by a series of small things brought together.",
+
+"The harder you work for something, the greater you'll feel when you achieve it.",
+
+"Success is not final, failure is not fatal; what matters is having the courage to continue.",
+
+"Your only limit is the one you set for yourself.",
+
+"Work hard in silence. Let your success make the noise.",
+
+"Stay focused. Stay disciplined. Keep moving forward.",
+
+"Small progress is still progress.",
+
+"Don't stop when you're tired. Stop when you're done.",
+
+"Nothing worth having comes easy.",
+
+"The secret of getting ahead is getting started.",
+
+"Focus on the goal, not the obstacles.",
+
+"Consistency turns effort into results.",
+
+"Hard work beats talent when talent doesn't work hard.",
+
+"Your habits will determine your future.",
+
+"One day or day one. You decide.",
+
+"Make yourself proud.",
+
+"Be stronger than your excuses.",
+
+"Do something today that your future self will thank you for.",
+
+"The pain of discipline is nothing compared to the pain of regret.",
+
+"Success requires sacrifice.",
+
+"Keep going. Your future self is watching.",
+
+"Fall seven times, stand up eight.",
+
+"Greatness begins where comfort ends.",
+
+"Focus on becoming better, not being better than someone else.",
+
+"Progress demands patience.",
+
+"Champions keep playing until they get it right.",
+
+"Your potential means nothing without action.",
+
+"Every expert was once a beginner.",
+
+"Stay patient. Stay consistent. Trust the process.",
+
+"Don't compare your beginning to someone else's middle.",
+
+"Your mindset determines your direction.",
+
+"Excuses will always be there. Opportunities won't.",
+
+"Success starts with the decision to try.",
+
+"Believe in yourself, even when nobody else does.",
+
+"Hard times build strong people.",
+
+"Nothing changes if nothing changes.",
+
+"The road to success is always under construction.",
+
+"Keep your eyes on the prize and your feet on the ground.",
+
+"Discipline creates freedom.",
+
+"Effort never betrays you.",
+
+"Make your future bigger than your fears.",
+
+"Action is the foundation of success.",
+
+"Don't wish for it. Work for it.",
+
+"Stay hungry. Stay focused.",
 
 
-/* =====================================
-   BACKGROUND COLLECTION
-===================================== */
+/* HINDI */
+
+"Sapne wahi sach hote hain, jinke liye roz mehnat ki jaati hai.",
+
+"Mehnat kabhi bekaar nahi jaati.",
+
+"Jo waqt aaj tumhare paas hai, wahi tumhari sabse badi daulat hai.",
+
+"Safalta unhi ko milti hai jo haar maan-ne se inkaar kar dete hain.",
+
+"Manzil unhi ko milti hai jo raaste ki mushkilon se nahi darte.",
+
+"Khud par kaam karo, duniya khud tumhari value samajhne lagegi.",
+
+"Mehnat ka koi shortcut nahi hota.",
+
+"Jitni badi mehnat, utni badi kamyabi.",
+
+"Har din ek nayi shuruaat hai.",
+
+"Jo aaj mushkil lag raha hai, wahi kal tumhari taqat banega.",
+
+"Apne sapno ko apni majbooriyon se bada rakho.",
+
+"Samay aur mehnat dono kabhi wapas nahi aate.",
+
+"Haar sirf tab hoti hai jab tum koshish karna chhod dete ho.",
+
+"Safalta ka koi shortcut nahi, sirf discipline aur consistency hai.",
+
+"Khud par bharosa rakho aur chalte raho.",
+
+"Jo log aaj tumhari mehnat nahi samajh rahe, kal wahi tumhari misaal denge.",
+
+"Mushkilein tumhe rokne nahi, tumhe mazboot banane aati hain.",
+
+"Apni mehnat par bharosa rakho.",
+
+"Kal behtar banana hai toh aaj behtar karna hoga.",
+
+"Zindagi badalne ke liye pehle apni aadatein badalni padti hain.",
+
+"Jitna focus manzil par hoga, utna kam dhyaan rukawaton par jayega.",
+
+"Safalta intezaar karne se nahi, mehnat karne se milti hai.",
+
+"Khud ko har din kal se behtar banao.",
+
+"Jo log haar ke baad bhi khade hote hain, wahi asli winner hote hain.",
+
+"Mehnat chupchaap karo, result khud bolenge.",
+
+"Apne waqt ki kadar karo, kyunki waqt kisi ka intezaar nahi karta.",
+
+"Dar ke aage sirf jeet nahi, ek naya version of yourself bhi hota hai.",
+
+"Manzil mushkil ho sakti hai, namumkin nahi.",
+
+"Jab tak koshish jaari hai, tab tak haar nahi hai.",
+
+"Apni kahani kisi aur ke comparison se mat likho.",
+
+
+/* HINGLISH */
+
+"Dream bada rakho, aur uske liye daily kaam karo.",
+
+"Motivation temporary hai, discipline permanent results deta hai.",
+
+"Talent tumhe start karwa sakta hai, consistency tumhe finish line tak le jaati hai.",
+
+"Life mein shortcut nahi, smart work aur hard work dono chahiye.",
+
+"Focus itna strong rakho ki distractions chhote lagne lagen.",
+
+"Success tab milti hai jab excuses khatam hote hain.",
+
+"Jo kaam aaj kar sakte ho, use kal par mat chhodo.",
+
+"Apne goals ko serious lo, chahe duniya tumhe serious na le.",
+
+"Comfort zone se bahar nikloge tabhi growth milegi.",
+
+"Consistency boring lag sakti hai, lekin results extraordinary hote hain.",
+
+"Don't chase motivation. Chase discipline.",
+
+"Apna competition kisi aur se nahi, kal wale khud se rakho.",
+
+"Failure ka matlab end nahi, feedback hai.",
+
+"Jab tak goal achieve nahi hota, tab tak excuses matter nahi karte.",
+
+"Focus on your work. Let the results introduce you.",
+
+"Hard work karo, patience rakho, result aayega.",
+
+"Study today so that tomorrow becomes easier.",
+
+"Jo sacrifice aaj painful lag raha hai, kal wahi proud moment banega.",
+
+"Consistency rakho. Slow progress bhi progress hai.",
+
+"Apne dreams ko reality banane ke liye daily effort chahiye.",
+
+"Success ka wait mat karo. Uske layak khud ko banao.",
+
+"Time waste karna easy hai. Time invest karna powerful hai.",
+
+"Jitna difficult goal, utni meaningful journey.",
+
+"Discipline tab hota hai jab mood na ho, phir bhi kaam karo.",
+
+"Focus karo, compare mat karo.",
+
+"Ek bad day tumhari poori journey define nahi karta.",
+
+"Keep going. Abhi story khatam nahi hui.",
+
+"Apni mehnat ko underestimate mat karo.",
+
+"Jo aaj impossible lag raha hai, kal normal ho sakta hai.",
+
+"Success ke liye perfect hona zaroori nahi, consistent hona zaroori hai.",
+
+
+/* STUDY / EXAMS */
+
+"Study now. Enjoy the result later.",
+
+"Your rank is built one focused hour at a time.",
+
+"Every question you solve today makes tomorrow easier.",
+
+"Don't study because you have to. Study because you want a better future.",
+
+"One chapter at a time. One problem at a time. One goal at a time.",
+
+"Consistency in preparation creates confidence in the exam.",
+
+"Your future deserves your present effort.",
+
+"Marks are temporary. The discipline you build lasts much longer.",
+
+"Study when you feel motivated. Study even more when you don't.",
+
+"Every hour of focused study is an investment in your future.",
+
+"JEE ek din ki preparation se nahi, har din ki consistency se crack hota hai.",
+
+"Rank luck se nahi, preparation se banti hai.",
+
+"Phone thodi der baad bhi chalega. Tumhara goal wait nahi karega.",
+
+"Aaj ki padhai kal ka confidence banegi.",
+
+"Ek question aur. Ek chapter aur. Bas aise hi progress hoti hai.",
+
+"Exam ke din confidence chahiye toh preparation ke din discipline chahiye.",
+
+"Jitna sincere preparation, utna kam exam ka fear.",
+
+"Topper aur average student ke beech ka difference aksar consistency hota hai.",
+
+"Distractions temporary hain. Tumhara goal permanent hona chahiye.",
+
+"Abhi mehnat kar lo, result ke din regret nahi hoga.",
+
+
+/* MINDSET */
+
+"Your thoughts become your actions, and your actions become your life.",
+
+"Confidence comes from keeping promises you make to yourself.",
+
+"Growth begins when excuses end.",
+
+"Don't let a temporary situation become a permanent mindset.",
+
+"Be patient with yourself, but never stop improving.",
+
+"The person you become is more important than the goal you achieve.",
+
+"Your attitude decides how far your effort will take you.",
+
+"Learn from yesterday. Work today. Prepare for tomorrow.",
+
+"Your comfort zone will never introduce you to your full potential.",
+
+"Become the person your goals require.",
+
+"Don't fear slow progress. Fear standing still.",
+
+"Every setback is a chance to come back stronger.",
+
+"Your story is still being written.",
+
+"Keep improving until your old self becomes unrecognizable.",
+
+"Believe less in luck and more in preparation.",
+
+"Control what you can control and give your best.",
+
+"Your future is worth the discipline required to build it.",
+
+"Be consistent enough to surprise yourself.",
+
+"Sometimes the strongest move is simply to keep going.",
+
+"Make progress your priority, not perfection."
+
+];
+
+
+/* =========================================================
+   BACKGROUNDS
+   ========================================================= */
 
 const backgrounds = [
 
-"https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1920&q=85",
+"https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=2000&q=85",
 
-"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1920&q=85",
+"https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=2000&q=85",
 
-"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1920&q=85",
+"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=2000&q=85",
 
-"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1920&q=85",
+"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2000&q=85",
 
-"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=85",
+"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2000&q=85",
 
-"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1920&q=85",
+"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=2000&q=85",
 
-"https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1920&q=85",
+"https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=2000&q=85",
 
-"https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1920&q=85",
+"https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?auto=format&fit=crop&w=2000&q=85",
 
-"https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1920&q=85",
+"https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=2000&q=85",
 
-"https://images.unsplash.com/photo-1444723121867-7a241cacace9?auto=format&fit=crop&w=1920&q=85"
-
-];
-
-
-/* =====================================
-   OFFLINE FALLBACK QUOTES
-
-   Website still works if API is down
-===================================== */
-
-const fallbackQuotes = [
-
-{
-quote: "The future depends on what you do today.",
-author: "Mahatma Gandhi"
-},
-
-{
-quote: "It always seems impossible until it's done.",
-author: "Nelson Mandela"
-},
-
-{
-quote: "Believe you can and you're halfway there.",
-author: "Theodore Roosevelt"
-},
-
-{
-quote: "The secret of getting ahead is getting started.",
-author: "Mark Twain"
-},
-
-{
-quote: "Success is not final. Failure is not fatal. It is the courage to continue that counts.",
-author: "Winston Churchill"
-},
-
-{
-quote: "The best way to predict the future is to create it.",
-author: "Peter Drucker"
-}
+"https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=2000&q=85"
 
 ];
 
 
-/* =====================================
-   DOM ELEMENTS
-===================================== */
+/* =========================================================
+   ENGINE
+   ========================================================= */
 
-const quoteElement =
-document.getElementById("quote");
-
-const authorElement =
-document.getElementById("author");
-
-const quoteContainer =
-document.getElementById("quoteContainer");
-
-const backgroundElement =
-document.getElementById("background");
-
-const counterElement =
-document.getElementById("counter");
-
-const progressElement =
-document.getElementById("progress");
-
-const statusElement =
-document.getElementById("status");
-
-const pausedElement =
-document.getElementById("paused");
-
-
-/* =====================================
-   QUOTE DATABASE
-===================================== */
-
-let quotePool = [];
-
+let unusedQuotes = [...quotes];
+let currentQuote = "";
 let sessionNumber = 0;
 
-let lastQuote = "";
+const CHANGE_TIME = 7000;
 
-let isPaused = false;
-
-let timer = null;
-
-
-/* =====================================
-   FETCH REAL QUOTES
-
-   QuoteSlate API
-   2600+ inspirational quotes
-===================================== */
-
-async function loadQuotes() {
-
-    statusElement.textContent =
-    "FETCHING REAL INSPIRATION...";
-
-
-    try {
-
-        const response = await fetch(
-
-"https://quoteslate.vercel.app/api/quotes/random?count=50"
-
-        );
-
-
-        if (!response.ok) {
-
-            throw new Error("API unavailable");
-
-        }
-
-
-        const data = await response.json();
-
-
-        /*
-        Convert API format safely
-        */
-
-        quotePool = data.map(item => ({
-
-            quote:
-            item.quote ||
-            item.text ||
-            item.content,
-
-            author:
-            item.author ||
-            "Unknown"
-
-        }))
-        .filter(item => item.quote);
-
-
-        if (quotePool.length === 0) {
-
-            throw new Error("No quotes received");
-
-        }
-
-
-        statusElement.textContent =
-        "LIVE QUOTES • 2,600+ POSSIBILITIES";
-
-
-    }
-
-    catch (error) {
-
-
-        console.log(
-        "Online API unavailable. Using fallback.",
-        error
-        );
-
-
-        quotePool = fallbackQuotes;
-
-
-        statusElement.textContent =
-        "INSPIRATION MODE";
-
-
-    }
-
+function randomItem(array) {
+    return array[Math.floor(Math.random() * array.length)];
 }
 
+function getQuote() {
 
-/* =====================================
-   GET NEXT QUOTE
-===================================== */
-
-function getNextQuote() {
-
-    if (quotePool.length === 0) {
-
-        return fallbackQuotes[
-            Math.floor(
-                Math.random() *
-                fallbackQuotes.length
-            )
-        ];
-
+    if (unusedQuotes.length === 0) {
+        unusedQuotes = [...quotes];
     }
 
+    let index = Math.floor(Math.random() * unusedQuotes.length);
 
-    let selected;
-
-
-    let attempts = 0;
-
-
-    do {
-
-        selected =
-        quotePool[
-            Math.floor(
-                Math.random() *
-                quotePool.length
-            )
-        ];
-
-        attempts++;
-
-    }
-
-    while (
-
-        selected.quote === lastQuote
-
-        &&
-
-        attempts < 10
-
-    );
-
-
-    lastQuote = selected.quote;
-
+    let selected = unusedQuotes.splice(index, 1)[0];
 
     return selected;
-
 }
 
+function showQuote() {
 
-/* =====================================
-   BACKGROUND
-===================================== */
+    const quoteElement = document.getElementById("quote");
+    const authorElement = document.getElementById("author");
+    const background = document.getElementById("background");
 
-function changeBackground() {
-
-    const image =
-
-    backgrounds[
-        Math.floor(
-            Math.random() *
-            backgrounds.length
-        )
-    ];
-
-
-    backgroundElement.style.opacity = 0;
-
+    quoteElement.style.opacity = "0";
+    quoteElement.style.transform = "translateY(15px)";
 
     setTimeout(() => {
 
-        backgroundElement.style.backgroundImage =
-        `url("${image}")`;
-
-        backgroundElement.style.opacity = 1;
-
-    }, 500);
-
-}
-
-
-/* =====================================
-   SHOW QUOTE
-===================================== */
-
-function showNextQuote() {
-
-
-    if (isPaused) return;
-
-
-    quoteContainer.classList.add(
-        "hideQuote"
-    );
-
-
-    setTimeout(() => {
-
-
-        const selected =
-        getNextQuote();
-
-
-        quoteElement.textContent =
-        selected.quote;
-
-
-        authorElement.textContent =
-        "— " + selected.author;
-
-
+        currentQuote = getQuote();
         sessionNumber++;
 
+        quoteElement.innerText = `"${currentQuote}"`;
 
-        counterElement.textContent =
+        authorElement.innerText =
+            "INFINITE MOTIVATION • #" + sessionNumber;
 
-        "SESSION MOTIVATION #" +
+        background.style.backgroundImage =
+            `url("${randomItem(backgrounds)}")`;
 
-        sessionNumber.toLocaleString();
+        quoteElement.style.opacity = "1";
+        quoteElement.style.transform = "translateY(0)";
 
-
-        changeBackground();
-
-
-        quoteContainer.classList.remove(
-            "hideQuote"
-        );
-
-
-    }, 550);
-
-
-    startProgress();
-
+    }, 450);
 }
 
 
-/* =====================================
-   PROGRESS BAR
-===================================== */
+/* =========================================================
+   AUTOMATIC CHANGE
+   ========================================================= */
 
-function startProgress() {
+let timer = null;
+let startTime = Date.now();
 
+function startTimer() {
 
-    progressElement.style.transition =
-    "none";
-
-
-    progressElement.style.width =
-    "0%";
-
-
-    setTimeout(() => {
-
-
-        progressElement.style.transition =
-
-        `width ${QUOTE_DURATION}ms linear`;
-
-
-        progressElement.style.width =
-        "100%";
-
-
-    }, 50);
-
-}
-
-
-/* =====================================
-   AUTO PLAY
-===================================== */
-
-function startAutoPlay() {
-
+    startTime = Date.now();
 
     clearInterval(timer);
 
-
     timer = setInterval(() => {
 
+        showQuote();
 
-        if (!isPaused) {
-
-            showNextQuote();
-
-        }
+    }, CHANGE_TIME);
+}
 
 
-    }, QUOTE_DURATION);
+/* =========================================================
+   PROGRESS BAR
+   ========================================================= */
+
+function updateProgress() {
+
+    const progress = document.getElementById("progress");
+
+    const elapsed = Date.now() - startTime;
+
+    let percent =
+        (elapsed / CHANGE_TIME) * 100;
+
+    if (percent > 100) percent = 100;
+
+    progress.style.width = percent + "%";
+
+    requestAnimationFrame(updateProgress);
+}
+
+
+/* =========================================================
+   NEXT BUTTON / CLICK
+   ========================================================= */
+
+function nextQuote() {
+
+    showQuote();
+
+    startTimer();
 
 }
 
 
-/* =====================================
-   CLICK = NEXT QUOTE
-===================================== */
+/* Click anywhere */
 
-document.addEventListener(
-"click",
+document.addEventListener("click", function(event) {
 
-(event) => {
+    if (event.target.tagName !== "BUTTON") {
 
-
-    if (
-
-        event.target.id ===
-        "shareButton"
-
-    ) return;
-
-
-    if (!isPaused) {
-
-        showNextQuote();
+        nextQuote();
 
     }
 
-}
-
-);
+});
 
 
-/* =====================================
-   HOLD = PAUSE
-===================================== */
+/* Spacebar */
 
-let holdTimer;
+document.addEventListener("keydown", function(event) {
 
+    if (event.code === "Space") {
 
-document.addEventListener(
-"pointerdown",
+        event.preventDefault();
 
-() => {
-
-
-    holdTimer = setTimeout(() => {
-
-
-        isPaused = true;
-
-
-        pausedElement.classList.add(
-            "show"
-        );
-
-
-        progressElement.style.transition =
-        "none";
-
-
-    }, 700);
-
-}
-
-
-);
-
-
-document.addEventListener(
-"pointerup",
-
-() => {
-
-
-    clearTimeout(holdTimer);
-
-
-    if (isPaused) {
-
-
-        isPaused = false;
-
-
-        pausedElement.classList.remove(
-            "show"
-        );
-
-
-        startProgress();
-
+        nextQuote();
 
     }
 
-}
-
-);
+});
 
 
-/* =====================================
-   SHARE BUTTON
-===================================== */
+/* =========================================================
+   START
+   ========================================================= */
 
-document
-.getElementById("shareButton")
-.addEventListener(
+showQuote();
 
-"click",
+startTimer();
 
-async (event) => {
-
-
-    event.stopPropagation();
-
-
-    const shareData = {
-
-        title:
-        "∞ Infinite Motivation",
-
-        text:
-        "An endless stream of motivation.",
-
-        url:
-        window.location.href
-
-    };
-
-
-    try {
-
-
-        if (navigator.share) {
-
-
-            await navigator.share(
-                shareData
-            );
-
-
-        }
-
-        else {
-
-
-            await navigator.clipboard.writeText(
-
-                window.location.href
-
-            );
-
-
-            statusElement.textContent =
-
-            "LINK COPIED ✓";
-
-
-        }
-
-
-    }
-
-    catch (error) {
-
-        console.log(
-            "Share cancelled"
-        );
-
-    }
-
-}
-
-);
-
-
-/* =====================================
-   INITIALIZE WEBSITE
-===================================== */
-
-async function initialize() {
-
-
-    changeBackground();
-
-
-    await loadQuotes();
-
-
-    showNextQuote();
-
-
-    startAutoPlay();
-
-}
-
-
-initialize();
-
+updateProgress();
 
 </script>
 
 </body>
-
 </html>
